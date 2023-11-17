@@ -19,7 +19,8 @@ class Priorytetowy_stos:
 
     @staticmethod
     def sum_key_sort(item):
-        return abs(sum(item[0]) - sum(item[1]))
+        return abs((item[2]) - (item[3]))
+        #return abs(sum(item[0]) - sum(item[1]))
 
     def pop(self):
         return self._stack.pop(-1)
@@ -35,3 +36,4 @@ class Priorytetowy_stos:
 
     def __len__(self):
         return len(self._stack)
+

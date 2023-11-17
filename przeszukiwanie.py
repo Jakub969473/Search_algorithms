@@ -1,3 +1,5 @@
+import copy
+
 import priorytetowy_stos
 from stos import Stos
 
@@ -43,7 +45,9 @@ class Przeszukiwanie:
     def heuracy(self):
 
         self._stack_for_search = priorytetowy_stos.Priorytetowy_stos()
-        self._stack_for_search.push([[], []])
+        self._stack_for_search.push([[], [], 0, 0])
+        #self._stack_for_search.push([[], []])
+
 
         while True:
             task_index = self.get_current_task()
@@ -51,14 +55,19 @@ class Przeszukiwanie:
                 break
             else:
                 self.add_to_piority_stack(self.tasks[task_index], self._stack_for_search.pop())
+                print(len(self._stack_for_search))
 
         return self._stack_for_search.pop()
 
     def add_to_piority_stack(self, task, current_state):
-        left = [list(i) for i in current_state]
-        right = [list(i) for i in current_state]
+        #left = [list(i) for i in current_state]
+        left = copy.deepcopy(current_state)
+        #right = [list(i) for i in current_state]
+        right = copy.deepcopy(current_state)
         left[0].append(task)
+        left[2] += task
         right[1].append(task)
+        right[3] += task
 
         self._stack_for_search.push(left)
         self._stack_for_search.push(right)
